@@ -82,6 +82,9 @@ public class ActivityTest {
     @Test
     public void testTitleTextPortrait() throws Exception {
         mActivityRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // Need to wait for Screen orientation. For some reason the landscape is working fine, but
+        // now portrait does not. Android is certainly interesting.
+        Thread.sleep(4000);
         onView(withId(R.id.title))
                 .check(matches(withText("The other side makes you small")));
     }
@@ -94,7 +97,32 @@ public class ActivityTest {
     @Test
     public void testTitleTextLandscape() throws Exception {
         mActivityRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        // Need to wait for Screen orientation. For some reason the landscape is working fine, but
+        // now portrait does not. Android is certainly interesting.
+        Thread.sleep(4000);
         onView(withId(R.id.title))
                 .check(matches(withText("One side makes you larger")));
+    }
+
+
+    /**
+     * Test that orientation changes keeps existing data.
+     */
+    @Test
+    public void testOrientationChangePersistsList() throws Exception {
+        onView(withId(R.id.editText)).perform(typeText("White Rabbit"));
+        onView(withId(R.id.button)).perform(click());
+
+        mActivityRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        onData(is(instanceOf(String.class)))
+                .atPosition(0)
+                .check(matches(withText("White Rabbit")));
+
+        mActivityRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        onData(is(instanceOf(String.class)))
+                .atPosition(0)
+                .check(matches(withText("White Rabbit")));
     }
 }
