@@ -3,5 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="button_label">Down The Rabbit Hole</string>
     <string name="title_activity_text">TextActivity</string>
-    <string name="title">The other side makes you small</string>
+    <string name="portrait_title">The other side makes you small</string>
+    <string name="landscapte_title">One side makes you larger</string>
 </resources>
