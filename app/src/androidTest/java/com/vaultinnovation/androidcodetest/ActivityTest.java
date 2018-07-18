@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -33,7 +34,7 @@ public class ActivityTest {
     @Test
     public void testAddItem() throws Exception {
         onView(withId(R.id.editText))
-                .perform(typeText("White Rabbit"));
+                .perform(typeText("White Rabbit"), closeSoftKeyboard());
         onView(withId(R.id.button))
                 .perform(click());
         onData(is(instanceOf(String.class)))
@@ -46,11 +47,11 @@ public class ActivityTest {
      */
     @Test
     public void testItemsSorted() throws Exception {
-        onView(withId(R.id.editText)).perform(typeText("White Rabbit"));
+        onView(withId(R.id.editText)).perform(typeText("White Rabbit"), closeSoftKeyboard());
         onView(withId(R.id.button)).perform(click());
-        onView(withId(R.id.editText)).perform(typeText("Cheshire Cat"));
+        onView(withId(R.id.editText)).perform(typeText("Cheshire Cat"), closeSoftKeyboard());
         onView(withId(R.id.button)).perform(click());
-        onView(withId(R.id.editText)).perform(typeText("Dormouse"));
+        onView(withId(R.id.editText)).perform(typeText("Dormouse"), closeSoftKeyboard());
         onView(withId(R.id.button)).perform(click());
         onData(is(instanceOf(String.class)))
                 .atPosition(0)
@@ -68,7 +69,7 @@ public class ActivityTest {
      */
     @Test
     public void testTapItem() throws Exception {
-        onView(withId(R.id.editText)).perform(typeText("Cheshire Cat"));
+        onView(withId(R.id.editText)).perform(typeText("Cheshire Cat"), closeSoftKeyboard());
         onView(withId(R.id.button)).perform(click());
         onData(allOf(instanceOf(String.class), equalTo("Cheshire Cat")))
                 .perform(click());
