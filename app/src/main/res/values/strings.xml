@@ -4,4 +4,8 @@
     <string name="button_label">Down The Rabbit Hole</string>
     <string name="title_activity_text">TextActivity</string>
     <string name="title">The other side makes you small</string>
+
+    <string name="main_activity_the_other_side">The other side makes you small</string>
+    <string name="main_activity_one_side">One side makes you larger</string>
+
 </resources>
